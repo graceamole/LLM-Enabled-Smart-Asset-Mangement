@@ -13,7 +13,7 @@ import time
 # -----------------------------
 DB_PATH = "app/assets_data.db"
 TABLE_NAME = "filled_asset_data"
-client = Groq(api_key="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")
+client = Groq(api_key="")
 MODEL_NAME = "llama3-8b-8192"
 
 # -----------------------------
