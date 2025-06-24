@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ChatFlow</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(to bottom right, #4f46e5, #9333ea);
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chat-container {
+        background: white;
+        width: 350px;
+        height: 500px;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      .chat-header {
+        background: linear-gradient(to right, #4f46e5, #9333ea);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-weight: bold;
+      }
+      .chat-body {
+        flex: 1;
+        padding: 10px;
+        overflow-y: auto;
+      }
+      .chat-message {
+        margin: 10px 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .chat-message.user {
+        align-items: flex-end;
+      }
+      .chat-message.bot {
+        align-items: flex-start;
+      }
+      .bubble {
+        padding: 10px 15px;
+        border-radius: 20px;
+        max-width: 70%;
+        word-wrap: break-word;
+      }
+      .bubble.user {
+        background-color: #4f46e5;
+        color: white;
+        border-bottom-right-radius: 5px;
+      }
+      .bubble.bot {
+        background-color: #f1f1f1;
+        color: #333;
+        border-bottom-left-radius: 5px;
+      }
+      .chat-input {
+        display: flex;
+        padding: 10px;
+        border-top: 1px solid #ddd;
+      }
+      .chat-input input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        background: #f1f1f1;
+        margin-right: 10px;
+      }
+      .chat-input button {
+        background: #4f46e5;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-header">ChatFlow</div>
+      <div class="chat-body" id="chatBox"></div>
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Reply..." />
+        <button onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+
+    <script>
+      async function sendMessage() {
+        const input = document.getElementById("userInput");
+        const chatBox = document.getElementById("chatBox");
+        const message = input.value.trim();
+        if (!message) return;
+
+        // Add user message
+        chatBox.innerHTML += `
+        <div class="chat-message user">
+          <div class="bubble user">${message}</div>
+        </div>
+      `;
+        chatBox.scrollTop = chatBox.scrollHeight;
+        input.value = "";
+
+        // Show loading bubble
+        const typingEl = document.createElement("div");
+        typingEl.className = "chat-message bot";
+        typingEl.innerHTML = `<div class="bubble bot">...</div>`;
+        chatBox.appendChild(typingEl);
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+        try {
+          const res = await fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message }),
+          });
+          const data = await res.json();
+
+          // Remove loading
+          chatBox.removeChild(typingEl);
+
+          // Show bot response
+          chatBox.innerHTML += `
+          <div class="chat-message bot">
+            <div class="bubble bot">${data.reply}</div>
+          </div>
+        `;
+          chatBox.scrollTop = chatBox.scrollHeight;
+        } catch (err) {
+          typingEl.innerHTML = `<div class="bubble bot">Error: ${err.message}</div>`;
+        }
+      }
+    </script>
+  </body>
+</html>
