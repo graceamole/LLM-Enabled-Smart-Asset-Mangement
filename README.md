@@ -4,7 +4,7 @@ This project allows users to interact with a SQLite database of equipment data u
 
 ---
 
-## 🚀 Features
+##  Features
 
 - **Natural Language → SQL** conversion using Groq's LLaMA model
 - **Streamlit-based Web UI** for querying and document retrieval
@@ -14,16 +14,16 @@ This project allows users to interact with a SQLite database of equipment data u
 
 ---
 
-## 🧱 Project Structure
+##  Project Structure
 
 Project Structure
 
 ```bash
-equipment-nl2sql-app/
+ChatBot/
 ├── app/
 │   ├── assets_data.db            # Your SQLite database
 │   ├── smatbotest_v.py           # Core logic (SQL generation, querying, LLMs)
-│   ├── chatbit_ui.py             # Streamlit UI script
+│   ├── chatbot_ui_v.py             # Streamlit UI script
 │   ├── fileuploadnew.py          # (Optional) File upload handler
 ├── requirements.txt              # All Python dependencies
 ├── README.md                     # This file
@@ -33,16 +33,14 @@ equipment-nl2sql-app/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/equipment-nl2sql-app.git
-cd equipment-nl2sql-app
+git clone https://github.com/YOUR_USERNAME/LLM-Enabled-Smart-Asset-Management.git
 ```
 
 ### 2. Set Up Virtual Environment (optional but recommended)
 
 python -m venv venv
 source venv/bin/activate
-
-# On Windows: venv\Scripts\activate
+On Windows: venv\Scripts\activate
 
 ### 3. Install Dependencies
 
@@ -59,5 +57,6 @@ $env:GROQ_API_KEY="your_key_here"       # On PowerShell
 ```
 
 ### 5. Run the App
-
+```bash
 streamlit run app/chatbit_ui.py
+```
