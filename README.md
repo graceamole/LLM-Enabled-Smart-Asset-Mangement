@@ -37,15 +37,15 @@ git clone https://github.com/YOUR_USERNAME/LLM-Enabled-Smart-Asset-Management.gi
 ```
 
 ### 2. Set Up Virtual Environment (optional but recommended)
-
+```bash
 python -m venv venv
 source venv/bin/activate
 On Windows: venv\Scripts\activate
-
+```
 ### 3. Install Dependencies
-
+```bash
 pip install -r requirements.txt
-
+```
 ### 4. Install Dependencies Add Your Groq API Key
 
 Set an environment variable named GROQ_API_KEY
