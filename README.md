@@ -1,4 +1,4 @@
-# 🧠 Equipment Database Natural Language Query App
+#  Equipment Database Natural Language Query App
 
 This project allows users to interact with a SQLite database of equipment data using natural language questions via a web interface powered by **Streamlit** and **LLMs**.
 
